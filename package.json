@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist -r https://github.com/Tsany-student/project-Portfolio.git"
+    "deploy": "gh-pages -d dist -r https://github.com/Tsany-student/tugasReact.git"
   },
   "dependencies": {
     "react": "^19.1.1",
