@@ -9,7 +9,7 @@ function Awards() {
           
           <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
             <img 
-              src="./public/images/Pt 2.png" 
+              src="{foto1}" 
               alt="React Dasar" 
               className="mx-auto mb-4 w-full max-w-md rounded-lg shadow-lg object-contain" 
             />
