@@ -1,4 +1,5 @@
-import foto1 from "../../public/images/Pt 2.PNG"
+import foto1 from "../../public/images/Pt 2.PNG";
+
 function Awards() {
   return (
     <section id="awards" className="py-20 bg-white dark:bg-gray-900">
@@ -6,7 +7,6 @@ function Awards() {
         <h2 className="text-3xl font-bold mb-12">Penghargaan</h2>
         <div className="grid md:grid-cols-2 gap-6">
           
-          {/* Award 1 */}
           <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
             <img 
               src="./public/images/Pt 2.png" 
@@ -18,7 +18,6 @@ function Awards() {
             <p className="mt-2">Penghargaan desain antarmuka terbaik.</p>
           </div>
 
-          {/* Award 2 */}
           <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
             <img 
               src="./public/images/ASIKK.PNG" 
@@ -30,7 +29,6 @@ function Awards() {
             <p className="mt-2">Developer dengan performa luar biasa.</p>
           </div>
 
-          {/* Award 3 */}
           <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
             <img 
               src="./public/images/JS DASAR.png" 
