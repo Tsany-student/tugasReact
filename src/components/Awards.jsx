@@ -1,3 +1,4 @@
+import foto1 from "../../public/images/Pt 2.PNG"
 function Awards() {
   return (
     <section id="awards" className="py-20 bg-white dark:bg-gray-900">
