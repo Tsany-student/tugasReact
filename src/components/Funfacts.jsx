@@ -50,13 +50,7 @@ function Header() {
 
         {/* Dark Mode & Mobile Menu */}
         <div className="flex items-center space-x-4">
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 transition"
-            aria-label="Toggle Dark Mode"
-          >
-            {darkMode ? "☀️" : "🌙"}
-          </button>
+
 
           <button
             className="md:hidden text-2xl text-gray-700 dark:text-gray-200 focus:outline-none"

@@ -8,7 +8,7 @@ function Certificates() {
           {/* Sertifikat 1 - React Dasar */}
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
             <img
-              src="/images/React Dasar.PNG"
+              src="./public/images/React Dasar.PNG"
               alt="React Dasar"
               className="mx-auto mb-4 max-w-xs md:max-w-sm rounded-lg shadow"
             />
@@ -27,7 +27,7 @@ function Certificates() {
           {/* Sertifikat 2 - JavaScript Dasar */}
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
             <img
-              src="/images/2 cuy.PNG"
+              src="./public/images/2 cuy.PNG"
               alt="JavaScript Dasar"
               className="mx-auto mb-4 max-w-xs md:max-w-sm rounded-lg shadow"
             />
@@ -46,7 +46,7 @@ function Certificates() {
           {/* Sertifikat 3 - JavaScript Intermediate */}
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
             <img
-              src="/images/2 cuy.PNG"
+              src="./public/images/1 cuy.PNG"
               alt="JavaScript Intermediate"
               className="mx-auto mb-4 max-w-xs md:max-w-sm rounded-lg shadow"
             />

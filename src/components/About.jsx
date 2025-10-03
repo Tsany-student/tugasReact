@@ -4,7 +4,7 @@
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
         <div className="md:w-1/2">
           <img
-            src="/images/Kece Kan.png"
+            src="./public/images/Kece Kan.png"
             alt="About Me"
             className="rounded-lg shadow-lg"
           />

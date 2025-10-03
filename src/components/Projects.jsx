@@ -8,7 +8,7 @@ function Projects() {
           {/* Project 1 */}
           <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:scale-105 transition-transform duration-300">
             <img
-              src="/images/MR ELEKTRONIK.PNG"
+              src="./public/images/MR ELEKTRONIK.PNG"
               alt="Website Toko Online"
               className="w-full h-48 object-cover rounded-lg mb-4"
             />
@@ -19,7 +19,7 @@ function Projects() {
           {/* Project 2 */}
           <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:scale-105 transition-transform duration-300">
             <img
-              src="/images/1 ini baru kece.PNG"
+              src="./public/images/1 ini baru kece.PNG"
               alt="Aplikasi Mobile Task"
               className="w-full h-48 object-cover rounded-lg mb-4"
             />
@@ -30,7 +30,7 @@ function Projects() {
           {/* Project 3 */}
           <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:scale-105 transition-transform duration-300">
             <img
-              src="/images/Slicinggg.PNG"
+              src="./public/images/Slicinggg.PNG"
               alt="UI Dashboard"
               className="w-full h-48 object-cover rounded-lg mb-4"
             />

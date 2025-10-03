@@ -8,7 +8,7 @@ function Awards() {
           {/* Award 1 */}
           <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
             <img 
-              src="/images/Pt 2.png" 
+              src="./public/images/Pt 2.png" 
               alt="React Dasar" 
               className="mx-auto mb-4 w-full max-w-md rounded-lg shadow-lg object-contain" 
             />
@@ -20,7 +20,7 @@ function Awards() {
           {/* Award 2 */}
           <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
             <img 
-              src="/images/ASIKK.PNG" 
+              src="./public/images/ASIKK.PNG" 
               alt="Dicoding" 
               className="mx-auto mb-4 w-full max-w-md rounded-lg shadow-lg object-contain" 
             />
@@ -32,7 +32,7 @@ function Awards() {
           {/* Award 3 */}
           <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
             <img 
-              src="/images/JS DASAR.png" 
+              src="./public/images/JS DASAR.png" 
               alt="Frontend Mastery" 
               className="mx-auto mb-4 w-full max-w-md rounded-lg shadow-lg object-contain" 
             />
@@ -44,7 +44,7 @@ function Awards() {
           {/* Award 4 */}
           <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
             <img 
-              src="/images/Sertif Javascript Intermediate.png" 
+              src="./public/images/Sertif Javascript Intermediate.png" 
               alt="Backend Specialist" 
               className="mx-auto mb-4 w-full max-w-md rounded-lg shadow-lg object-contain" 
             />
