@@ -47,3 +47,19 @@
 .animate-nebula2 {
   animation: nebula2 40s ease-in-out infinite;
 }
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+}
+
+.animate-fadeOut {
+  animation: fadeOut 1s ease-out forwards;
+  animation-delay: 2.8s; /* mulai fade pas hampir selesai */
+}

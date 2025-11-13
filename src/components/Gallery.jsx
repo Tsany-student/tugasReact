@@ -2,7 +2,7 @@ function Gallery() {
   const photos = [
     { src: "images/Di masjid.jpg", alt: "Foto 1" },
     { src: "images/Rame.jpg", alt: "Foto 2" },
-    { src: "images/1 pondok.jpg", alt: "Foto 3" }, // foto tengah landscape
+    { src: "images/1 pondok.jpg", alt: "Foto 3" },
   ];
 
   return (
@@ -12,7 +12,6 @@ function Gallery() {
       </h2>
 
       <div className="px-4 md:px-10 lg:px-20">
-        {/* Grid atas */}
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           <div className="overflow-hidden rounded-2xl shadow-lg group bg-gray-800 p-2">
             <img
@@ -30,7 +29,6 @@ function Gallery() {
           </div>
         </div>
 
-        {/* Foto tengah landscape full width */}
         <div className="w-full flex items-center justify-center">
           <div className="rounded-2xl shadow-2xl overflow-hidden group p-4 w-full">
             <img

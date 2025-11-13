@@ -1,3 +1,5 @@
+
+
 function Projects() {
   return (
     <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
@@ -5,7 +7,6 @@ function Projects() {
         <h2 className="text-3xl font-bold mb-12">Proyek Terbaru</h2>
         <div className="grid md:grid-cols-3 gap-6">
           
-          {/* Project 1 */}
           <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:scale-105 transition-transform duration-300">
             <img
               src="./public/images/MR ELEKTRONIK.PNG"
@@ -16,7 +17,6 @@ function Projects() {
             <p className="text-sm text-gray-600 dark:text-gray-400">Web</p>
           </div>
 
-          {/* Project 2 */}
           <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:scale-105 transition-transform duration-300">
             <img
               src="./public/images/1 ini baru kece.PNG"
@@ -27,7 +27,6 @@ function Projects() {
             <p className="text-sm text-gray-600 dark:text-gray-400">Mobile</p>
           </div>
 
-          {/* Project 3 */}
           <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:scale-105 transition-transform duration-300">
             <img
               src="./public/images/Slicinggg.PNG"
