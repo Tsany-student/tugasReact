@@ -1,8 +1,13 @@
+import Foto1 from "../assets/images/Di masjid.jpg";
+import Foto2 from "../assets/images/Rame.jpg";
+import Foto3 from "../assets/images/1 pondok.jpg";
+
+
 function Gallery() {
   const photos = [
-    { src: "images/Di masjid.jpg", alt: "Foto 1" },
-    { src: "images/Rame.jpg", alt: "Foto 2" },
-    { src: "images/1 pondok.jpg", alt: "Foto 3" },
+   { src: Foto1, alt: "Foto 1" },
+  { src: Foto2, alt: "Foto 2" },
+  { src: Foto3, alt: "Foto 3" },
   ];
 
   return (

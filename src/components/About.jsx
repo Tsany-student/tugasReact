@@ -1,27 +1,35 @@
- function About() {
+import React from "react";
+import kece from '../assets/images/Kece.jpg';
+
+function About({ language }) {
   return (
     <section id="about" className="py-20 bg-white dark:bg-gray-900 transition-colors duration-500">
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
         <div className="md:w-1/2">
           <img
-            src="./public/images/Kece Kan.png"
-            alt="About Me"
+            src={kece}
+            alt={language === "EN" ? "About Me" : "Tentang Saya"}
             className="rounded-lg shadow-lg"
           />
         </div>
         <div className="md:w-1/2">
-          <h2 className="text-3xl font-bold mb-6">Tentang Saya</h2>
+          <h2 className="text-3xl font-bold mb-6">
+            {language === "EN" ? "About Me" : "Tentang Saya"}
+          </h2>
           <p className="text-lg leading-relaxed mb-4">
-            Halo! Saya Tsani, seorang Frontend Developer & UI Designer yang
-            fokus membangun website modern, interaktif, dan responsif.
+            {language === "EN"
+              ? "Hi! I'm Tsani, a Frontend Developer & UI Designer focused on building modern, interactive, and responsive websites."
+              : "Halo! Saya Tsani, seorang Frontend Developer & UI Designer yang fokus membangun website modern, interaktif, dan responsif."}
           </p>
           <p className="text-lg leading-relaxed">
-            Saya suka mengubah ide kreatif menjadi aplikasi nyata dengan desain
-            yang menarik dan performa cepat.
+            {language === "EN"
+              ? "I enjoy turning creative ideas into real applications with attractive designs and fast performance."
+              : "Saya suka mengubah ide kreatif menjadi aplikasi nyata dengan desain yang menarik dan performa cepat."}
           </p>
         </div>
       </div>
     </section>
   );
 }
+
 export default About;

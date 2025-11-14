@@ -1,3 +1,7 @@
+import foto1 from "../assets/images/React Dasar.PNG";
+import foto2 from "../assets/images/2 cuy.PNG";
+import foto3 from "../assets/images/1 cuy.PNG";
+
 function Certificates() {
   return (
     <section id="sertifikat" className="bg-gray-900 text-white py-20">
@@ -5,10 +9,9 @@ function Certificates() {
         <h2 className="text-4xl font-bold mb-12">Sertifikat</h2>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {/* Sertifikat 1 - React Dasar */}
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
             <img
-              src="./public/images/React Dasar.PNG"
+              src={foto1}
               alt="React Dasar"
               className="mx-auto mb-4 max-w-xs md:max-w-sm rounded-lg shadow"
             />
@@ -24,10 +27,9 @@ function Certificates() {
             </a>
           </div>
 
-          {/* Sertifikat 2 - JavaScript Dasar */}
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
             <img
-              src="./public/images/2 cuy.PNG"
+              src={foto2}
               alt="JavaScript Dasar"
               className="mx-auto mb-4 max-w-xs md:max-w-sm rounded-lg shadow"
             />
@@ -43,10 +45,9 @@ function Certificates() {
             </a>
           </div>
 
-          {/* Sertifikat 3 - JavaScript Intermediate */}
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
             <img
-              src="./public/images/1 cuy.PNG"
+              src={foto3}
               alt="JavaScript Intermediate"
               className="mx-auto mb-4 max-w-xs md:max-w-sm rounded-lg shadow"
             />

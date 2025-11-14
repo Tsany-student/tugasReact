@@ -33,15 +33,12 @@ function Services() {
               key={s.id}
               className="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow hover:scale-105 transition-transform duration-300"
             >
-              {/* Icon */}
               <div className="text-4xl mb-4">{s.icon}</div>
 
-              {/* Title */}
               <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
                 {s.title}
               </h3>
 
-              {/* Description */}
               <p className="text-gray-700 dark:text-gray-300">{s.desc}</p>
             </div>
           ))}

@@ -11,23 +11,23 @@ import FAQ from "./components/FAQ";
 import Awards from "./components/Awards";
 import Certificates from "./components/Certificates";
 import Gallery from "./components/Gallery";
-import FunFacts from "./components/Funfacts";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
 
 function App() {
   const [showIntro, setShowIntro] = useState(true);
   const [textIndex, setTextIndex] = useState(0);
+  const [language, setLanguage] = useState("ID"); 
 
-const texts = [
-  "SIPUNK", 
-  "シパンク",
-  "시푼크",
-  "Сипунк",
-  "Σιπουνκ",
-  "सिपंक",
-  "סיפונק",
-];
+  const texts = [
+    "SIPUNK",
+    "シパンク",
+    "시푼크",
+    "Сипунк",
+    "Σιπουνκ",
+    "सिपंक",
+    "סיפונק",
+  ];
 
   useEffect(() => {
     if (showIntro) {
@@ -54,21 +54,20 @@ const texts = [
         </div>
       ) : (
         <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
-          <Header />
-          <Hero />
-          <Projects />
-          <About />
-          <Skills />
-          <Services />
-          <Timeline />
-          <Testimonials />
-          <FAQ />
-          <Awards />
-          <Certificates />
-          <Gallery />
-          <FunFacts />
-          <CTA />
-          <Footer />
+          <Header language={language} setLanguage={setLanguage} />
+          <Hero language={language} />
+          <Projects language={language} />
+          <About language={language} />
+          <Skills language={language} />
+          <Services language={language} />
+          <Timeline language={language} />
+          <Testimonials language={language} />
+          <FAQ language={language} />
+          <Awards language={language} />
+          <Certificates language={language} />
+          <Gallery language={language} />
+          <CTA language={language} />
+          <Footer language={language} />
         </div>
       )}
     </>
