@@ -9,7 +9,6 @@ import Timeline from "./components/Timeline";
 import Testimonials from "./components/Testimonials";
 import FAQ from "./components/FAQ";
 import Awards from "./components/Awards";
-import Certificates from "./components/Certificates";
 import Gallery from "./components/Gallery";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
@@ -64,7 +63,6 @@ function App() {
           <Testimonials language={language} />
           <FAQ language={language} />
           <Awards language={language} />
-          <Certificates language={language} />
           <Gallery language={language} />
           <CTA language={language} />
           <Footer language={language} />

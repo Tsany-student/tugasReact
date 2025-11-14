@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Logo from "../assets/images/Logo Tsany.png"; 
 
 function Header({ language, setLanguage }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,7 +14,14 @@ function Header({ language, setLanguage }) {
   return (
     <header className="fixed top-0 w-full bg-gray-800 shadow z-50 transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-purple-500">Tsani</h1>
+
+        <a href="#home" className="flex items-center gap-2">
+          <img
+            src={Logo}
+            alt="Logo"
+            className="h-10 w-auto object-contain select-none"
+          />
+        </a>
 
         <nav className="hidden md:flex space-x-8 items-center">
           {navLinks.map((link) => (
@@ -25,6 +33,7 @@ function Header({ language, setLanguage }) {
               {link.label}
             </a>
           ))}
+
           <button
             onClick={() => setLanguage(language === "EN" ? "ID" : "EN")}
             className="p-2 rounded bg-gray-700 hover:bg-gray-600 transition-colors duration-300 text-gray-200"
@@ -62,6 +71,7 @@ function Header({ language, setLanguage }) {
               </a>
             </li>
           ))}
+
           <li>
             <button
               onClick={() => setLanguage(language === "EN" ? "ID" : "EN")}
