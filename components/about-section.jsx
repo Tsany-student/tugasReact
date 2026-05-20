@@ -165,15 +165,16 @@ export function AboutSection() {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 15]);
 
+  // Skill yang disesuaikan dengan workflow modern developer/designer
   const skills = [
-    "UX Design",
-    "Visual Design", 
-    "Motion Design",
-    "Brand Identity",
-    "Design Systems",
+    "React / Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Framer Motion",
+    "UI/UX Design",
+    "Web Performance",
     "Interaction Design",
-    "Prototyping",
-    "User Research",
+    "State Management",
   ];
 
   return (
@@ -231,18 +232,18 @@ export function AboutSection() {
           </motion.span>
         </motion.div>
 
-        {/* Main heading with rich animations */}
+        {/* Main heading dengan nama kamu */}
         <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-medium leading-[1.4] mb-20">
-          <SplitTextReveal text="Creative® is the design work of" delay={0} />
+          <SplitTextReveal text="Digital experiences crafted by" delay={0} />
           {" "}
           <motion.span
             initial={{ opacity: 0, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, filter: "blur(0px)" }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-muted-foreground"
+            className="text-muted-foreground font-semibold"
           >
-            John
+            Tsany Al
           </motion.span>{" "}
           <motion.em
             initial={{ opacity: 0, rotateY: 90 }}
@@ -252,16 +253,16 @@ export function AboutSection() {
             className="font-serif italic not-italic"
             style={{ fontStyle: "italic" }}
           >
-            Doe
+            Fachrizy
           </motion.em>
           <SplitTextReveal 
-            text=", a passionate designer based in" 
+            text=", a creative developer & designer based in" 
             delay={0.3}
           />
           {" "}
           <HighlightText>Jakarta, Indonesia</HighlightText>
           <SplitTextReveal 
-            text=". Currently crafting digital experiences @" 
+            text=". Currently exploring new tech & building things at" 
             delay={0.5}
           />
           {" "}
@@ -275,7 +276,7 @@ export function AboutSection() {
             whileHover={{ scale: 1.05 }}
           >
             <span className="underline underline-offset-4 decoration-foreground/30 hover:decoration-foreground transition-all">
-              TechCorp
+              My Lab
             </span>
             <motion.span
               className="absolute -right-4 top-0 text-lg"
@@ -288,7 +289,7 @@ export function AboutSection() {
           .
         </h2>
 
-        {/* Stats with animated counters */}
+        {/* Stats yang disesuaikan */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -297,10 +298,10 @@ export function AboutSection() {
           className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20 py-12 border-y border-border"
         >
           {[
-            { number: "8", suffix: "+", label: "Years of Experience" },
-            { number: "50", suffix: "+", label: "Projects Completed" },
-            { number: "30", suffix: "+", label: "Happy Clients" },
-            { number: "15", suffix: "", label: "Awards Won" },
+            { number: "3", suffix: "+", label: "Years of Coding" },
+            { number: "24", suffix: "+", label: "Repositories Built" },
+            { number: "15", suffix: "+", label: "Happy Collaborators" },
+            { number: "99", suffix: "%", label: "Coffee Infused" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -319,12 +320,12 @@ export function AboutSection() {
           ))}
         </motion.div>
 
-        {/* Description paragraphs */}
+        {/* Deskripsi Diri */}
         <div className="space-y-8 text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mb-16">
           {[
-            "With 8 years of experience in the design industry, I have had the opportunity to work with both industry leaders like Google, Tokopedia, Gojek and more, as well as innovative startups.",
-            "I have been fortunate to have my work recognised with awards such as Awwwards Site of the Day, CSS Design Awards, and FWA of the Day.",
-            "I am passionate about pushing the boundaries of Design, and breaking the rules when needed. Creating experiences that are both beautiful and functional.",
+            "Fokus utama saya adalah menjembatani celah antara desain visual yang memukau dan fungsionalitas kode yang efisien. Saya suka menghidupkan antarmuka statis menjadi interaksi yang dinamis dan interaktif.",
+            "Selalu penasaran dengan ekosistem web modern, saya menghabiskan waktu bereksperimen dengan animasi berbasis performa, arsitektur frontend yang bersih, dan user experience yang intuitif.",
+            "Bagi saya, coding bukan sekadar menulis sintaks, melainkan sebuah seni untuk menyelesaikan masalah dan memberikan pengalaman digital terbaik bagi pengguna.",
           ].map((text, i) => (
             <motion.p
               key={i}
@@ -339,7 +340,7 @@ export function AboutSection() {
           ))}
         </div>
 
-        {/* Skills/Expertise with magnetic effect */}
+        {/* Skills/Expertise */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -356,7 +357,7 @@ export function AboutSection() {
           </div>
         </motion.div>
 
-        {/* Pronunciation note */}
+        {/* Pronunciation / Meaning Note (Disesuaikan dengan nama kamu) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -365,9 +366,7 @@ export function AboutSection() {
           className="mt-16 pt-8 border-t border-border"
         >
           <p className="text-sm text-muted-foreground">
-            <span className="text-foreground">*</span> Doe (ˈdoʊ) from the English
-            means{" "}
-            <em className="font-serif italic">an anonymous person, unknown identity</em>.
+            <span className="text-foreground">*</span> Fachrizy / Al-Fachrizy diambil dari kata yang merepresentasikan kesatria, kebanggaan, dan tekad yang kuat.
           </p>
         </motion.div>
       </div>
@@ -393,7 +392,7 @@ export function AboutSection() {
             />
             <text className="text-[6px] tracking-[0.2em] fill-foreground/20 uppercase">
               <textPath href="#circlePath2">
-                DESIGNER • CREATOR • INNOVATOR • THINKER •{" "}
+                DEVELOPER • CREATOR • ENGINEER • THINKER •{" "}
               </textPath>
             </text>
           </svg>
