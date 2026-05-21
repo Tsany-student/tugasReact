@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useScroll, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 
 const socialLinks = [
   { label: "LINKEDIN", href: "#" },
@@ -11,7 +11,10 @@ const socialLinks = [
   { label: "TWITTER", href: "#" },
 ];
 
-// Magnetic button with smooth spring
+const TARGET_EMAIL = "tsani1209@student.abudzar.sch.id";
+const GMAIL_COMPOSE_URL = "https://mail.google.com/mail/u/0/#inbox?compose=new";
+
+// Magnetic button with smooth spring & performance throttling
 function MagneticButton({ children, className, strength = 0.3 }) {
   const ref = useRef(null);
   const x = useMotionValue(0);
@@ -21,63 +24,51 @@ function MagneticButton({ children, className, strength = 0.3 }) {
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
 
-  const handleMouseMove = (e) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) * strength);
-    y.set((e.clientY - centerY) * strength);
-  };
+  useEffect(() => {
+    let ticking = false;
+    const refEl = ref.current;
 
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
+    const handleMouseMove = (e) => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const rect = refEl?.getBoundingClientRect();
+          if (!rect) return;
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          x.set((e.clientX - centerX) * strength);
+          y.set((e.clientY - centerY) * strength);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    const handleMouseLeave = () => {
+      x.set(0);
+      y.set(0);
+    };
+
+    if (refEl) {
+      refEl.addEventListener("mousemove", handleMouseMove, { passive: true });
+      refEl.addEventListener("mouseleave", handleMouseLeave);
+    }
+
+    return () => {
+      if (refEl) {
+        refEl.removeEventListener("mousemove", handleMouseMove);
+        refEl.removeEventListener("mouseleave", handleMouseLeave);
+      }
+    };
+  }, [strength, x, y]);
 
   return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x: springX, y: springY }}
-      className={className}
-    >
+    <motion.div ref={ref} style={{ x: springX, y: springY }} className={className}>
       {children}
     </motion.div>
   );
 }
 
-// Animated text reveal on hover
-function RevealLink({ children, href }) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.a
-      href={href}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="relative inline-block overflow-hidden py-1"
-    >
-      <motion.span
-        className="block"
-        animate={{ y: isHovered ? "-100%" : "0%" }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {children}
-      </motion.span>
-      <motion.span
-        className="absolute top-full left-0 block"
-        animate={{ y: isHovered ? "-100%" : "0%" }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {children}
-      </motion.span>
-    </motion.a>
-  );
-}
-
-// Floating 3D sphere
+// Floating 3D sphere with GPU CSS Acceleration (Emoji Removed & Optimized)
 function FloatingSphere() {
   const [mounted, setMounted] = useState(false);
   
@@ -88,50 +79,49 @@ function FloatingSphere() {
   if (!mounted) return null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 1, type: "spring" }}
-      className="relative"
-    >
+    <>
+      {/* CSS Injection untuk animasi performa tinggi murni menggunakan GPU */}
+      <style>{`
+        @keyframes sphereFloat {
+          0%, 100% { transform: translateY(-15px) rotateX(0deg) rotateY(0deg); }
+          50% { transform: translateY(15px) rotateX(15deg) rotateY(180deg); }
+        }
+        @keyframes ringOrbitNormal {
+          0% { transform: rotateX(75deg) rotateY(0deg); }
+          100% { transform: rotateX(75deg) rotateY(360deg); }
+        }
+        @keyframes ringOrbitReverse {
+          0% { transform: rotateX(75deg) rotateY(0deg); }
+          100% { transform: rotateX(75deg) rotateY(-360deg); }
+        }
+        .gpu-sphere { animation: sphereFloat 8s infinite ease-in-out; }
+        .gpu-ring-1 { animation: ringOrbitNormal 8s infinite linear; }
+        .gpu-ring-2 { animation: ringOrbitReverse 12s infinite linear; }
+      `}</style>
+
       <motion.div
-        animate={{ 
-          y: [-15, 15, -15],
-          rotateY: [0, 360],
-          rotateX: [0, 15, 0],
-        }}
-        transition={{ 
-          y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-          rotateY: { duration: 10, repeat: Infinity, ease: "linear" },
-          rotateX: { duration: 7, repeat: Infinity, ease: "easeInOut" },
-        }}
-        className="relative w-36 h-36 md:w-48 md:h-48"
-        style={{ transformStyle: "preserve-3d" }}
+        initial={{ opacity: 0, scale: 0 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, type: "spring" }}
+        className="relative"
       >
-        {/* Gradient sphere */}
-        <div className="w-full h-full rounded-full bg-gradient-to-br from-rose-400 via-fuchsia-400 to-violet-500 shadow-2xl flex items-center justify-center">
-          <span className="text-5xl md:text-6xl select-none">:)</span>
+        <div 
+          className="relative w-36 h-36 md:w-48 md:h-48 gpu-sphere" 
+          style={{ transformStyle: "preserve-3d", willChange: "transform" }}
+        >
+          {/* Gradient sphere (Smile Emoji Removed) */}
+          <div className="w-full h-full rounded-full bg-gradient-to-br from-rose-400 via-fuchsia-400 to-violet-500 shadow-2xl" />
+          
+          {/* Glow effects */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-rose-400 via-fuchsia-400 to-violet-500 blur-3xl opacity-30 -z-10 scale-150" />
+          
+          {/* Orbiting rings */}
+          <div className="absolute inset-0 border border-white/20 rounded-full gpu-ring-1" style={{ transformStyle: "preserve-3d" }} />
+          <div className="absolute inset-[-20px] border border-white/10 rounded-full gpu-ring-2" style={{ transformStyle: "preserve-3d" }} />
         </div>
-        
-        {/* Glow effects */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-rose-400 via-fuchsia-400 to-violet-500 blur-3xl opacity-30 -z-10 scale-150" />
-        
-        {/* Orbiting rings */}
-        <motion.div
-          animate={{ rotateX: 75, rotateY: 360 }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 border border-white/20 rounded-full"
-          style={{ transformStyle: "preserve-3d" }}
-        />
-        <motion.div
-          animate={{ rotateX: 75, rotateY: -360 }}
-          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-[-20px] border border-white/10 rounded-full"
-          style={{ transformStyle: "preserve-3d" }}
-        />
       </motion.div>
-    </motion.div>
+    </>
   );
 }
 
@@ -173,14 +163,16 @@ function RotatingBadge() {
   );
 }
 
-// Email link with hover animation
+// Email link with Gmail integration & fluid effect
 function EmailLink() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <MagneticButton strength={0.2}>
       <a
-        href="mailto:hello@creativestudio.co"
+        href={GMAIL_COMPOSE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className="group inline-flex flex-col"
@@ -191,18 +183,18 @@ function EmailLink() {
         
         <div className="relative overflow-hidden">
           <motion.span
-            className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-medium block"
+            className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-medium block"
             animate={{ y: isHovered ? "-100%" : "0%" }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            hello@creativestudio.co
+            {TARGET_EMAIL}
           </motion.span>
           <motion.span
-            className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-medium absolute top-full left-0"
+            className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-medium absolute top-full left-0 block"
             animate={{ y: isHovered ? "-100%" : "0%" }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            hello@creativestudio.co
+            {TARGET_EMAIL}
           </motion.span>
         </div>
         
@@ -214,18 +206,16 @@ function EmailLink() {
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         />
         
-        <motion.div
-          className="flex items-center gap-2 mt-4 text-muted-foreground"
-          animate={{ x: isHovered ? 10 : 0 }}
-        >
+        <div className="flex items-center gap-2 mt-4 text-muted-foreground">
           <span className="text-sm">Send me an email</span>
           <motion.span
-            animate={{ x: isHovered ? 5 : 0, rotate: isHovered ? -45 : 0 }}
+            animate={{ x: isHovered ? 10 : 0, rotate: isHovered ? -45 : 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="text-xl"
           >
             →
           </motion.span>
-        </motion.div>
+        </div>
       </a>
     </MagneticButton>
   );
@@ -240,9 +230,9 @@ function SocialLink({ link, index }) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: 0.5 + index * 0.08 }}
+      transition={{ delay: 0.3 + index * 0.05 }}
     >
-      <motion.a
+      <a
         href={link.href}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -264,7 +254,7 @@ function SocialLink({ link, index }) {
         >
           {link.label}
         </motion.span>
-      </motion.a>
+      </a>
     </motion.div>
   );
 }
@@ -276,7 +266,7 @@ export function ContactSection() {
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [150, -150]);
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   return (
@@ -307,13 +297,7 @@ export function ContactSection() {
       </div>
 
       {/* Section header */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="flex items-center gap-4 mb-20"
-      >
+      <div className="flex items-center gap-4 mb-20">
         <motion.span 
           className="text-xs tracking-widest text-muted-foreground font-mono"
           whileHover={{ letterSpacing: "0.3em" }}
@@ -325,21 +309,21 @@ export function ContactSection() {
           initial={{ width: 0 }}
           whileInView={{ width: 48 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.6 }}
         />
         <span className="text-xs tracking-widest text-muted-foreground">
           GET IN TOUCH
         </span>
-      </motion.div>
+      </div>
 
       {/* Main content grid */}
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-8 items-center min-h-[50vh]">
         {/* Left - Rotating Badge */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotate: -45 }}
-          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, type: "spring" }}
+          transition={{ duration: 0.6, type: "spring" }}
           className="flex justify-center lg:justify-start"
         >
           <RotatingBadge />
@@ -352,10 +336,10 @@ export function ContactSection() {
 
         {/* Right - Email CTA */}
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
+          initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="flex justify-center lg:justify-end"
         >
           <EmailLink />
@@ -363,13 +347,7 @@ export function ContactSection() {
       </div>
 
       {/* Social Links */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="mt-32 pt-10 border-t border-border"
-      >
+      <div className="mt-32 pt-10 border-t border-border">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
           <div className="flex flex-wrap gap-4 md:gap-6">
             {socialLinks.map((link, i) => (
@@ -377,53 +355,29 @@ export function ContactSection() {
             ))}
           </div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 1 }}
-            className="text-xs text-muted-foreground font-mono"
-          >
+          <p className="text-xs text-muted-foreground font-mono">
             © 2026 Creative® — All rights reserved
-          </motion.p>
+          </p>
         </div>
-      </motion.div>
+      </div>
 
       {/* Footer decoration */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.6 }}
-        className="mt-20 text-center"
-      >
+      <div className="mt-20 text-center">
         <p className="text-xs text-muted-foreground/50 tracking-widest">
           DESIGNED & BUILT WITH PASSION
         </p>
         <motion.div
           animate={{ y: [0, -5, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           className="mt-4 text-2xl"
         >
           ♥
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Decorative circles */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 0.05, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="absolute bottom-20 left-10 w-64 h-64 rounded-full border border-foreground"
-      />
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 0.03, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.2 }}
-        className="absolute top-40 right-20 w-40 h-40 rounded-full border border-foreground"
-      />
+      <div className="absolute bottom-20 left-10 w-64 h-64 rounded-full border border-foreground opacity-[0.03] pointer-events-none" />
+      <div className="absolute top-40 right-20 w-40 h-40 rounded-full border border-foreground opacity-[0.02] pointer-events-none" />
     </section>
   );
 }

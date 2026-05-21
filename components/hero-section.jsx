@@ -115,7 +115,7 @@ function FloatingShapes() {
 function AnimatedLines() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(5)].map((_, i) => (
+      {[0, 1, 2, 3, 4].map((i) => (
         <motion.div
           key={i}
           className="absolute h-px bg-gradient-to-r from-transparent via-primary-foreground/5 to-transparent"
@@ -140,8 +140,7 @@ function AnimatedLines() {
 
 export function HeroSection() {
   const containerRef = useRef(null);
-  const [mounted, setMounted] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const backgroundRef = useRef(null);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -160,16 +159,25 @@ export function HeroSection() {
   const scrollMagnetic = useMagnetic(0.5);
 
   useEffect(() => {
-    setMounted(true);
-    
+    let ticking = false;
+
     const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      });
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (backgroundRef.current) {
+            const xVal = (e.clientX / window.innerWidth - 0.5) * 20;
+            const yVal = (e.clientY / window.innerHeight - 0.5) * 20;
+            // Optimasi performa ekstrim menggunakan CSS Variables langsung ke DOM (Bebas Lag / No Re-render React)
+            backgroundRef.current.style.setProperty('--mouse-x', `${50 + xVal}%`);
+            backgroundRef.current.style.setProperty('--mouse-y', `${50 + yVal}%`);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
@@ -218,37 +226,19 @@ export function HeroSection() {
         </motion.span>
       </motion.div>
 
-      {/* Interactive background that follows mouse */}
-      {mounted && (
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(600px circle at ${50 + mousePosition.x}% ${50 + mousePosition.y}%, rgba(255,255,255,0.03), transparent 40%)`,
-          }}
-        />
-      )}
+      {/* Interactive background that follows mouse (Optimized version) */}
+      <div
+        ref={backgroundRef}
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.03), transparent 40%)`,
+        }}
+      />
 
       <motion.div
         style={{ y: springY, scale: springScale, opacity }}
         className="relative z-10 min-h-screen flex flex-col justify-end px-6 md:px-12 lg:px-20 pb-20"
       >
-        {/* Status bar */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.3, duration: 0.6 }}
-          className="absolute top-8 left-6 md:left-12 lg:left-20 flex items-center gap-4"
-        >
-          <motion.div
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-2 h-2 bg-green-400 rounded-full"
-          />
-          <span className="text-xs tracking-widest text-primary-foreground/50 font-mono">
-            AVAILABLE FOR WORK
-          </span>
-        </motion.div>
-
         {/* Main heading with 3D letter animation */}
         <div className="overflow-hidden perspective-1000">
           <h1 className="text-5xl md:text-7xl lg:text-[10rem] font-medium leading-[0.85] tracking-tighter">
@@ -392,7 +382,7 @@ export function HeroSection() {
         className="absolute top-1/2 left-6 md:left-12 -translate-y-1/2 hidden lg:block"
       >
         <div className="flex flex-col gap-3">
-          {[...Array(5)].map((_, i) => (
+          {[0, 1, 2, 3, 4].map((i) => (
             <motion.div
               key={i}
               initial={{ scaleX: 0 }}
