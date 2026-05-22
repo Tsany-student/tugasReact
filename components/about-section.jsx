@@ -260,7 +260,7 @@ export function AboutSection() {
             delay={0.3}
           />
           {" "}
-          <HighlightText>Jakarta, Indonesia</HighlightText>
+          <HighlightText>Cisauk, Indonesia</HighlightText>
           <SplitTextReveal 
             text=". Currently exploring new tech & building things at" 
             delay={0.5}

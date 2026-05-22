@@ -5,64 +5,62 @@ import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from
 
 const projects = [
   {
-    title: "Synthetic Studio",
-    tags: ["Creative Direction", "Visual", "Motion"],
-    type: "Website",
+    title: "React JS",
+    tags: ["Frontend", "Component Architecture", "SPA"],
+    type: "Library",
     year: "2026",
-    color: "#FF6B6B",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80",
+    color: "#61DAFB",
+    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&q=80",
   },
   {
-    title: "MindFlow",
-    tags: ["UX", "Visual", "Design System"],
-    type: "Website Design",
+    title: "JavaScript",
+    tags: ["ES6+", "Asynchronous", "Core Engine"],
+    type: "Programming Language",
+    year: "2026",
+    color: "#F7DF1E",
+    image: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=600&q=80",
+  },
+  {
+    title: "Tailwind CSS",
+    tags: ["Utility-First", "Responsive Design", "UI/UX"],
+    type: "CSS Framework",
     year: "2025",
-    color: "#4ECDC4",
-    image: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=600&q=80",
+    color: "#38BDF8",
+    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&q=80",
   },
   {
-    title: "TechVenture",
-    tags: ["UX", "Visual", "Motion"],
-    type: "Mobile App",
+    title: "HTML & CSS",
+    tags: ["Semantic Web", "Layouts", "SEO Friendly"],
+    type: "Web Basics",
     year: "2025",
-    color: "#FFE66D",
-    image: "https://images.unsplash.com/photo-1563089145-599997674d42?w=600&q=80",
+    color: "#E34F26",
+    image: "https://images.unsplash.com/photo-1621839673705-6617adf9e890?w=600&q=80",
   },
   {
-    title: "Artisan",
-    tags: ["UX", "Visual", "Brand"],
-    type: "Mobile App",
+    title: "Web Development",
+    tags: ["Fullstack", "Performance", "Security"],
+    type: "Ecosystem",
     year: "2024",
-    color: "#95E1D3",
-    image: "https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=600&q=80",
+    color: "#a855f7",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
   },
   {
-    title: "Web3 Collective",
-    tags: ["Art Direction", "Visual", "Motion"],
-    type: "App/Website",
+    title: "Next.js",
+    tags: ["SSR", "App Router", "Optimization"],
+    type: "React Framework",
     year: "2024",
-    color: "#DDA0DD",
-    image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=600&q=80",
-  },
-  {
-    title: "BrandCo",
-    tags: ["UX", "Visual", "Brand"],
-    type: "Brand Identity",
-    year: "2023",
-    color: "#F38181",
-    image: "https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=600&q=80",
+    color: "#ffffff",
+    image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=600&q=80",
   },
 ];
 
-// Project item with 3D hover effect
+// Project item with 3D hover effect & Performance Optimization
 function ProjectItem({ project, index }) {
   const ref = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
 
   const springConfig = { damping: 20, stiffness: 200 };
   const springX = useSpring(x, springConfig);
@@ -71,15 +69,23 @@ function ProjectItem({ project, index }) {
   const rotateX = useTransform(springY, [-0.5, 0.5], ["8deg", "-8deg"]);
   const rotateY = useTransform(springX, [-0.5, 0.5], ["-8deg", "8deg"]);
 
+  // Optimized Mouse Move using CSS Variables to avoid Framer state re-render lag
   const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
+    const el = ref.current;
+    if (!el) return;
+    
+    const rect = el.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
+    
     x.set((e.clientX - centerX) / rect.width);
     y.set((e.clientY - centerY) / rect.height);
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
+    
+    const mX = e.clientX - rect.left;
+    const mY = e.clientY - rect.top;
+    
+    el.style.setProperty("--mouse-x", `${mX}px`);
+    el.style.setProperty("--mouse-y", `${mY}px`);
   };
 
   const handleMouseLeave = () => {
@@ -91,10 +97,10 @@ function ProjectItem({ project, index }) {
   return (
     <motion.li
       ref={ref}
-      initial={{ opacity: 0, y: 80 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
@@ -110,11 +116,11 @@ function ProjectItem({ project, index }) {
         }}
         className="relative flex flex-col md:flex-row md:items-center justify-between py-8 md:py-10 lg:py-12 px-4 -mx-4 overflow-hidden"
       >
-        {/* Animated background gradient */}
-        <motion.div
-          className="absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        {/* Animated background gradient driven by high-performance CSS variables */}
+        <div
+          className="absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
           style={{
-            background: `radial-gradient(600px circle at ${mouseX.get()}px ${mouseY.get()}px, ${project.color}15, transparent 40%)`,
+            background: `radial-gradient(500px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), ${project.color}12, transparent 50%)`,
           }}
         />
 
@@ -124,7 +130,7 @@ function ProjectItem({ project, index }) {
           style={{ backgroundColor: project.color }}
           initial={{ scaleY: 0 }}
           animate={{ scaleY: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         />
 
         {/* Project number and title */}
@@ -132,10 +138,10 @@ function ProjectItem({ project, index }) {
           <motion.span
             className="text-xs text-muted-foreground font-mono w-8"
             animate={{ 
-              x: isHovered ? 15 : 0,
+              x: isHovered ? 10 : 0,
               color: isHovered ? project.color : undefined,
             }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.3 }}
           >
             {String(index + 1).padStart(2, "0")}
           </motion.span>
@@ -143,8 +149,8 @@ function ProjectItem({ project, index }) {
           <div className="overflow-hidden">
             <motion.h3
               className="text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-medium tracking-tight"
-              animate={{ x: isHovered ? 30 : 0 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              animate={{ x: isHovered ? 20 : 0 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
               <span className="relative inline-block">
                 {project.title.split("").map((char, i) => (
@@ -152,11 +158,11 @@ function ProjectItem({ project, index }) {
                     key={i}
                     className="inline-block"
                     animate={{
-                      y: isHovered ? [0, -5, 0] : 0,
+                      y: isHovered ? [0, -4, 0] : 0,
                     }}
                     transition={{
-                      duration: 0.4,
-                      delay: i * 0.02,
+                      duration: 0.3,
+                      delay: i * 0.015,
                     }}
                   >
                     {char === " " ? "\u00A0" : char}
@@ -169,7 +175,7 @@ function ProjectItem({ project, index }) {
                   style={{ backgroundColor: project.color }}
                   initial={{ width: 0 }}
                   animate={{ width: isHovered ? "100%" : 0 }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 />
               </span>
             </motion.h3>
@@ -181,8 +187,8 @@ function ProjectItem({ project, index }) {
           {/* Tags */}
           <motion.div
             className="flex flex-wrap gap-2"
-            animate={{ x: isHovered ? -15 : 0, opacity: isHovered ? 0.7 : 1 }}
-            transition={{ duration: 0.4 }}
+            animate={{ x: isHovered ? -10 : 0, opacity: isHovered ? 0.7 : 1 }}
+            transition={{ duration: 0.3 }}
           >
             {project.tags.map((tag, tagIndex) => (
               <span key={tag} className="text-xs md:text-sm text-muted-foreground">
@@ -214,12 +220,12 @@ function ProjectItem({ project, index }) {
           <motion.div
             className="hidden lg:flex items-center justify-center w-12 h-12 rounded-full border border-border"
             animate={{ 
-              x: isHovered ? 15 : 0,
+              x: isHovered ? 10 : 0,
               rotate: isHovered ? -45 : 0,
               borderColor: isHovered ? project.color : undefined,
-              scale: isHovered ? 1.1 : 1,
+              scale: isHovered ? 1.05 : 1,
             }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.3 }}
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M4 14L14 4M14 4H7M14 4V11" />
@@ -231,14 +237,15 @@ function ProjectItem({ project, index }) {
         <AnimatePresence>
           {isHovered && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              initial={{ opacity: 0, scale: 0.85, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 20 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: 0, scale: 0.85, y: 15 }}
+              transition={{ duration: 0.25 }}
               className="absolute right-20 top-1/2 -translate-y-1/2 w-48 h-32 rounded-lg overflow-hidden shadow-2xl pointer-events-none hidden xl:block"
               style={{ 
                 transformStyle: "preserve-3d",
                 transform: "translateZ(50px)",
+                willChange: "transform, opacity"
               }}
             >
               <img
@@ -248,7 +255,7 @@ function ProjectItem({ project, index }) {
                 crossOrigin="anonymous"
               />
               <div 
-                className="absolute inset-0 mix-blend-overlay opacity-30"
+                className="absolute inset-0 mix-blend-overlay opacity-20"
                 style={{ backgroundColor: project.color }}
               />
             </motion.div>
@@ -268,11 +275,11 @@ function ViewAllButton() {
       href="#"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      whileTap={{ scale: 0.95 }}
+      transition={{ duration: 0.5 }}
+      whileTap={{ scale: 0.98 }}
       className="relative inline-flex items-center gap-4 px-10 py-5 border border-foreground text-sm tracking-[0.2em] overflow-hidden group"
     >
       {/* Background fill animation */}
@@ -280,12 +287,12 @@ function ViewAllButton() {
         className="absolute inset-0 bg-foreground -z-10"
         initial={{ x: "-100%" }}
         animate={{ x: isHovered ? "0%" : "-100%" }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       />
       
       <motion.span
         animate={{ color: isHovered ? "var(--background)" : "var(--foreground)" }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.25 }}
       >
         VIEW ALL PROJECTS
       </motion.span>
@@ -295,7 +302,7 @@ function ViewAllButton() {
           x: isHovered ? 5 : 0,
           color: isHovered ? "var(--background)" : "var(--foreground)",
         }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.25 }}
         className="text-lg"
       >
         →
@@ -317,13 +324,7 @@ export function WorkSection() {
       className="bg-background text-foreground px-6 md:px-12 lg:px-20 py-24 md:py-40 overflow-hidden"
     >
       {/* Section header */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-20"
-      >
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-20">
         <div>
           <div className="flex items-center gap-4 mb-6">
             <motion.span 
@@ -337,7 +338,7 @@ export function WorkSection() {
               initial={{ width: 0 }}
               whileInView={{ width: 48 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.6 }}
             />
             <span className="text-xs tracking-widest text-muted-foreground">
               SELECTED WORK
@@ -345,26 +346,20 @@ export function WorkSection() {
           </div>
           
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ duration: 0.5 }}
             className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight"
           >
             Featured Projects
           </motion.h2>
         </div>
 
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="text-sm text-muted-foreground font-mono"
-        >
+        <span className="text-sm text-muted-foreground font-mono">
           {projects.length} PROJECTS
-        </motion.span>
-      </motion.div>
+        </span>
+      </div>
 
       {/* Projects list */}
       <ul className="border-t border-border mb-16">
