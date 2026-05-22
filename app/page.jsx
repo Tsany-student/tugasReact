@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Navigation } from "@/components/navigation";
 import { HeroSection } from "@/components/hero-section";
 import { AboutSection } from "@/components/about-section";
-import { WorkSection } from "@/components/work-section";
+import { WorkSection } from "@/components/work-section"; // Tetap import WorkSection
 import { ContactSection } from "@/components/contact-section";
 import { LoadingScreen } from "@/components/loading-screen";
 import { CustomCursor } from "@/components/custom-cursor";
@@ -38,7 +38,7 @@ export default function Home() {
           >
             <HeroSection />
             <AboutSection />
-            <WorkSection />
+            <WorkSection /> {/* Menampilkan section sertifikat lo */}
             <ContactSection />
           </motion.main>
         )}
