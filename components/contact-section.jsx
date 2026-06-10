@@ -356,7 +356,7 @@ export function ContactSection() {
           </div>
 
           <p className="text-xs text-muted-foreground font-mono">
-            © 2026 Creative® — All rights reserved
+            © 2026 Tsany.AF — All rights reserved
           </p>
         </div>
       </div>

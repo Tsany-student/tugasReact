@@ -58,7 +58,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="flex items-center gap-3"
           >
-            <span className="text-sm font-medium">CREATIVE</span>
+            <span className="text-sm font-medium">Tsany.AF</span>
             <span className="text-primary-foreground/40 text-xs">®</span>
           </motion.div>
           
@@ -69,7 +69,7 @@ export default function Home() {
             transition={{ delay: 0.1 }}
             className="text-xs text-primary-foreground/40 font-mono"
           >
-            © 2026 — ALL RIGHTS RESERVED
+            © 2026 Tsany.AF — ALL RIGHTS RESERVED
           </motion.p>
           
           <motion.div
@@ -86,7 +86,7 @@ export default function Home() {
             >
               ♥
             </motion.span>
-            <span>IN JAKARTA</span>
+            <span>IN CISAUK</span>
           </motion.div>
         </div>
       </motion.footer>

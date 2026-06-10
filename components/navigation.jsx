@@ -171,7 +171,7 @@ export function Navigation() {
         {/* Time/Location */}
         <div className="text-xs text-white/40 font-mono flex items-center gap-2">
           <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-          <span>JAKARTA, ID</span>
+          <span>CISAUK, ID</span>
         </div>
       </motion.nav>
 
